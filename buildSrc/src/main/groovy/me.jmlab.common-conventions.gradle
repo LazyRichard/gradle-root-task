@@ -1,0 +1,5 @@
+group = 'me.jmlab'
+
+tasks.register('clean', Delete) {
+    delete project.buildDir
+}

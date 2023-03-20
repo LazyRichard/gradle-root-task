@@ -1,0 +1,30 @@
+plugins {
+    id 'me.jmlab.common-conventions'
+}
+
+tasks.register('myTask1') {
+    doLast {
+        println 'task1'
+    }
+}
+
+tasks.register('myTask2', Copy) {
+
+    def valueExpand = [
+            'value': '2'
+    ]
+
+    inputs.properties valueExpand
+
+    from (projectDir.toPath().resolve('src/main/resources')) {
+        expand valueExpand
+
+        rename '(.+).tpl', '\$1'
+    }
+
+    into buildDir.toPath().resolve('sample2').toString()
+
+    doLast {
+        println 'task2'
+    }
+}

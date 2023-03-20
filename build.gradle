@@ -1,0 +1,14 @@
+def myRootTask = tasks.register('myRootTask') {
+    doLast {
+        println "rootTask dependsOn: ${getDependsOn()}"
+    }
+}
+
+subprojects {
+    tasks.withType(Copy).configureEach {
+        if (name.startsWith('myTask')) {
+            println it
+            myRootTask.get().dependsOn it
+        }
+    }
+}
